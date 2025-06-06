@@ -1,5 +1,3 @@
-# Amazon Food Review Sentiment Analysis
-
 ## Project Overview
 
 This project performs **sentiment analysis** on a subset of the Amazon Fine Food Reviews dataset. The goal is to classify reviews as **positive** or **negative**, helping businesses and researchers gain insights into customer satisfaction through natural language processing (NLP) techniques.

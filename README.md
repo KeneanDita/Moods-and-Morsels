@@ -4,7 +4,7 @@
 
 This project performs **sentiment analysis** on a subset of the Amazon Fine Food Reviews dataset. The goal is to classify reviews as **positive** or **negative**, helping businesses and researchers gain insights into customer satisfaction through natural language processing (NLP) techniques.
 
-The original dataset contained **over 500,000 reviews**, but due to resource constraints and to accelerate model prototyping, it was **reduced to 1,000 records** for this project.
+The original dataset contained **over 565,000 reviews**, but due to resource constraints and to accelerate model prototyping, it was **reduced to 10,000 records** for this project.
 
 ---
 
@@ -12,7 +12,7 @@ The original dataset contained **over 500,000 reviews**, but due to resource con
 
 * **Source**: [Amazon Fine Food Reviews (Kaggle)](https://www.kaggle.com/datasets/snap/amazon-fine-food-reviews)
 * **Original Size**: \~568,000 reviews
-* **Subset Used**: 1,000 reviews (random sample)
+* **Subset Used**: 10,000 reviews (random sample)
 * **Features**:
 
   * `Text`: The body of the customer review

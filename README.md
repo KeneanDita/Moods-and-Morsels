@@ -32,24 +32,28 @@ The original dataset contained **over 565,000 reviews**, but due to resource con
 ```
 amazon-food-review-sentiment
 ├── data/
-── reviews_sample.csv
-├── notebooks/
-│   └── sentiment_analysis.ipynb
+│   └── reviews_sample.csv
+├── M&M.ipynb  # Notebook for training and viewing model performance
 ├── models/
-│   └── saved_model.pkl
+│   └── transformers model folder
+├── UI.py #run this streamlit UI
 ├── README.md
 └── requirements.txt
 ```
 
 ---
 
-## Requirements
+## Requirements and Usage
 
 * Python 3.8+
 * pandas, numpy
 * scikit-learn
 * nltk
-* matplotlib, seaborn
+* transformers
+* matplotlib
+* seaborn
+
+Step 1. install requirements:
 
 Install via:
 
@@ -57,9 +61,18 @@ Install via:
 pip install -r requirements.txt
 ```
 
----
+Step 2:
 
-## Future Work
+~ Make sure you have the transformers model downloaded and it get's stored in a folder named 'Models'.
 
-* Scale up to full dataset
-* Deploy as a web API or dashboard
+run this after the 2 steps are done
+
+Step 3:
+
+```bash
+Streamlit run .\UI.py
+```
+
+Enjoy testing the program. and give it a star ⭐ to appreciate the effort.
+
+### Author:  [KeneanDita](https://github.com/keneandita/)

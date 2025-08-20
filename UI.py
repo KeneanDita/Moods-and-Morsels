@@ -1,16 +1,17 @@
 import streamlit as st
-import joblib
-import numpy as np
+from transformers import RobertaTokenizer, RobertaForSequenceClassification
+import torch
 
-# Load the trained model + vectorizer
-model = joblib.load("sentiment_model.pkl")  # replace with your model filename
-vectorizer = joblib.load("vectorizer.pkl")  # replace with your vectorizer filename
+# Load model + tokenizer
+model_path = "Models"  # folder containing config.json & pytorch_model.bin
+tokenizer = RobertaTokenizer.from_pretrained(model_path)
+model = RobertaForSequenceClassification.from_pretrained(model_path)
 
 st.set_page_config(page_title="Sentiment Analyzer", page_icon="💬", layout="centered")
 
-st.title("💬 Sentiment Analysis App")
+st.title("💬 Sentiment Analysis with RoBERTa")
 st.write(
-    "Enter a sentence below and I’ll predict whether it’s **Positive**, **Negative**, or **Neutral**."
+    "Enter a sentence and I’ll classify it as **Positive**, **Negative**, or **Neutral**."
 )
 
 # User input
@@ -18,20 +19,21 @@ user_input = st.text_area("✍️ Type a sentence:", "")
 
 if st.button("Analyze Sentiment"):
     if user_input.strip():
-        # Transform input
-        X = vectorizer.transform([user_input])
+        # Encode input
+        inputs = tokenizer(
+            user_input, return_tensors="pt", truncation=True, padding=True
+        )
 
-        # Get probability for each class
-        probs = model.predict_proba(X)[0]
-        labels = model.classes_  # should be ["negative", "positive"]
+        # Get predictions
+        with torch.no_grad():
+            outputs = model(**inputs)
+            probs = torch.nn.functional.softmax(outputs.logits, dim=-1)[0]
 
-        # Assign probabilities
-        prob_dict = dict(zip(labels, probs))
-        pos_prob = prob_dict.get("positive", 0)
-        neg_prob = prob_dict.get("negative", 0)
+        # Assuming labels: 0 = Negative, 1 = Positive
+        neg_prob, pos_prob = probs.tolist()
 
         # Define neutral threshold
-        if abs(pos_prob - neg_prob) < 0.2:  # tweak this margin
+        if abs(pos_prob - neg_prob) < 0.2:
             sentiment = "Neutral 😐"
         else:
             sentiment = "Positive 😀" if pos_prob > neg_prob else "Negative 😞"
